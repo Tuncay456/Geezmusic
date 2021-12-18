@@ -23,25 +23,25 @@ from GeezProject.config import SUDO_USERS
 
 @Client.on_message(filters.command(["gcast"]))
 async def broadcast(_, message: Message):
-    sent=0
-    failed=0
     if message.from_user.id not in SUDO_USERS:
         return
-    else:
-        yaok = await message.reply("`starting broadcast...`")
-        if not message.reply_to_message:
-            await yaok.edit("please reply to a message to do broadcast!")
-            return
-        lmao = message.reply_to_message.text
-        async for dialog in client.iter_dialogs():
-            try:
-                await client.send_message(dialog.chat.id, lmao)
-                sent = sent+1
-                await yaok.edit(f"`global cast...` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
-                await asyncio.sleep(3)
-            except:
-                failed=failed+1
-                #await wtf.edit(f"`broadcasting...` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
-                
-            
-        await message.reply_text(f"`gcast succesfully` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
+
+    yaok = await message.reply("`starting broadcast...`")
+    if not message.reply_to_message:
+        await yaok.edit("please reply to a message to do broadcast!")
+        return
+    lmao = message.reply_to_message.text
+    sent=0
+    failed=0
+    async for dialog in client.iter_dialogs():
+        try:
+            await client.send_message(dialog.chat.id, lmao)
+            sent += 1
+            await yaok.edit(f"`global cast...` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
+            await asyncio.sleep(3)
+        except:
+            failed += 1
+                        #await wtf.edit(f"`broadcasting...` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
+                        
+
+    await message.reply_text(f"`gcast succesfully` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")

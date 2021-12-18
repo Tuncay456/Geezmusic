@@ -40,31 +40,37 @@ Saya Memiliki Banyak Fitur Seperti :
 
 Ingin Menambahkan Saya ke Grup Anda? Tambahkan Saya Ke Group Anda!
 </b>""",
-
-# Edit Yang Seharusnya Lu Edit Aja:D
-# Tapi Jangan di Hapus Special Thanks To nya Yaaa :'D
-
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "➕ Tambahkan saya ke Grup Anda ➕", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
+                        "➕ Tambahkan saya ke Grup Anda ➕",
+                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                    )
+                ],
                 [
                     InlineKeyboardButton(
-                        "💬 Channel Updates", url=f"https://t.me/{UPDATES_CHANNEL}"), 
+                        "💬 Channel Updates",
+                        url=f"https://t.me/{UPDATES_CHANNEL}",
+                    ),
                     InlineKeyboardButton(
-                        "🎈 Group Support", url=f"https://t.me/{SUPPORT_GROUP}")
-                ],[
+                        "🎈 Group Support", url=f"https://t.me/{SUPPORT_GROUP}"
+                    ),
+                ],
+                [
                     InlineKeyboardButton(
-                        "🛠 Source Code 🛠", url=f"https://{SOURCE_CODE}")
-                ],[
+                        "🛠 Source Code 🛠", url=f"https://{SOURCE_CODE}"
+                    )
+                ],
+                [
                     InlineKeyboardButton(
-                        "🎁 Donate", url=f"https://t.me/VckyouuBitch")
-                ]
+                        "🎁 Donate", url='https://t.me/VckyouuBitch'
+                    )
+                ],
             ]
         ),
-        reply_to_message_id=message.message_id
-        )
+        reply_to_message_id=message.message_id,
+    )
 
 @Client.on_message(filters.private & filters.incoming & filters.command(['help']))
 def _help(client, message):
@@ -91,27 +97,43 @@ def help_answer(client, callback_query):
 
 
 def map(pos):
-    if(pos==1):
-        button = [
+    if (pos==1):
+        return [
             [InlineKeyboardButton(text = 'Next »', callback_data = "help+2")]
         ]
-    elif(pos==len(tr.HELP_MSG)-1):
+    elif pos==len(tr.HELP_MSG)-1:
         url = f"https://t.me/{SUPPORT_GROUP}"
-        button = [
-            [InlineKeyboardButton("➕ Tambahkan saya ke Grup Anda ➕", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
-            [InlineKeyboardButton(text = '💬 Channel Updates', url=f"https://t.me/{UPDATES_CHANNEL}"),
-             InlineKeyboardButton(text = '🔰 Group Support', url=f"https://t.me/{SUPPORT_GROUP}")],
-            [InlineKeyboardButton(text = '🛠 Source Code 🛠', url=f"https://{SOURCE_CODE}")],
-            [InlineKeyboardButton(text = '«', callback_data = f"help+{pos-1}")]
+        return [
+            [
+                InlineKeyboardButton(
+                    "➕ Tambahkan saya ke Grup Anda ➕",
+                    url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text='💬 Channel Updates',
+                    url=f"https://t.me/{UPDATES_CHANNEL}",
+                ),
+                InlineKeyboardButton(
+                    text='🔰 Group Support', url=f"https://t.me/{SUPPORT_GROUP}"
+                ),
+            ],
+            [
+                InlineKeyboardButton(
+                    text='🛠 Source Code 🛠', url=f"https://{SOURCE_CODE}"
+                )
+            ],
+            [InlineKeyboardButton(text='«', callback_data=f"help+{pos-1}")],
         ]
+
     else:
-        button = [
+        return [
             [
                 InlineKeyboardButton(text = '«', callback_data = f"help+{pos-1}"),
                 InlineKeyboardButton(text = '»', callback_data = f"help+{pos+1}")
             ],
         ]
-    return button
 
 
 @Client.on_message(
@@ -163,18 +185,19 @@ async def help(client: Client, message: Message):
     & ~ filters.edited
 )
 async def reload(client: Client, message: Message):
-    await message.reply_text("""✅ Bot **berhasil dimulai ulang!**\n\n• **Daftar admin** telah **diperbarui**""",
-      reply_markup=InlineKeyboardMarkup(
+    await message.reply_text(
+        """✅ Bot **berhasil dimulai ulang!**\n\n• **Daftar admin** telah **diperbarui**""",
+        reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "Group Support", url=f"https://t.me/GeezSupportGroup"
+                        "Group Support", url='https://t.me/GeezSupportGroup'
                     ),
                     InlineKeyboardButton(
-                        "Created By", url=f"https://t.me/VckyouuBitch"
-                    )
+                        "Created By", url='https://t.me/VckyouuBitch'
+                    ),
                 ]
             ]
-        )
-   )
+        ),
+    )
 
